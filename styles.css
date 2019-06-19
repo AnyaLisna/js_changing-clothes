@@ -1,0 +1,40 @@
+body {
+  background: url('./background.jpg') no-repeat;
+  background-size: 100% 150%;
+}
+
+.container {
+  width: 80%;
+  margin: auto;
+  font-size: 25px;
+  margin-top: 140px;
+  color: rgb(25, 25, 26);
+  font-weight: bold;
+  text-shadow: 0 0 15px rgb(238, 238, 241);
+}
+
+section {
+  width: 40%;
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+}
+
+button {
+  cursor: pointer;
+  width: 75px;
+  height: 25px;
+}
+
+button:hover {
+  box-shadow: 0 0 10px 0 rgb(238, 238, 241);
+} 
+
+input {
+  height: 25px;
+  font-size: 18px;
+  padding-left: 5px;
+  color: grey;
+}
