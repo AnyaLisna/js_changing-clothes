@@ -1,5 +1,5 @@
 body {
-  background: url('./background.jpg') no-repeat;
+  background: linear-gradient(-45deg, #febbbb 0%,#fe9090 45%,#ff5c5c 100%);
   background-size: 100% 150%;
 }
 
