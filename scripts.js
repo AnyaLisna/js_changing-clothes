@@ -1,32 +1,48 @@
 'use strict'
 
-let initialState = {
+const initialState = {
   items: ['Apron', 'Belt', 'Cardigan', 'Dress', 'Earrings', 'Fur coat', 'Gloves', 'Hat'],
   value: '',
   item: '',
-  index: null
+}
+
+const CHOOSE_ITEM = 'choose_item';
+const CHANGE_ITEM = 'change_item';
+
+function chooseItem(item) {
+  return {
+    type: CHOOSE_ITEM,
+    item,
+  };
+}
+
+function changeItem(data, value, editItem) {
+  const newData = [...data];
+  return {
+    type: CHANGE_ITEM,
+    data: newData.map((item) => {
+      if (item === editItem) {
+        return (item = value);
+      }
+      return item;
+    }).filter(item => item !== ''),
+    item: '',
+  };
 }
 
 function getNextStata(state = initialState, action) {
   switch (action.type) {
-    case 'chooseItem': 
+    case CHOOSE_ITEM:
       return {
         ...state,
         item: action.item,
-        index: state.items.indexOf(action.item)
-      }
-    case 'changeItem': 
+      };
+    case CHANGE_ITEM:
       return {
         ...state,
-        items: state.items.map((item) => {
-          if(item === state.item) {
-            return item = action.value
-          } else {
-            return item;
-          }
-        }).filter(item => item !== ''),
-        item: '',
-      }
+        items: action.data,
+        item: action.item,
+      };
     default: 
       return state;
   }
@@ -47,20 +63,16 @@ function render() {
       row.append(button);
       button.innerText = 'Edit';
       button.addEventListener('click', (event) => {
-        store.dispatch({
-          type: 'chooseItem',
-          item: item,
-        });
+        store.dispatch(chooseItem(item));
       })
     } else {
         const input = document.createElement('input');
         input.value = item;
         row.append(input);
-        input.addEventListener('keypress', (event) => {
-        store.dispatch({
-          type: 'changeItem',
-          value: event.target.value
-        })
+        input.addEventListener('keydown', (event) => {
+          if(event.keyCode === 13) {
+            store.dispatch(changeItem(state.items, event.target.value, state.item))
+          }
       })
     }
     list.append(row);
